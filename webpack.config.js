@@ -1,54 +1,54 @@
-var webpack = require('webpack'),
-  path = require('path'),
-  fileSystem = require('fs-extra'),
-  env = require('./utils/env'),
-  CopyWebpackPlugin = require('copy-webpack-plugin'),
-  HtmlWebpackPlugin = require('html-webpack-plugin'),
-  TerserPlugin = require('terser-webpack-plugin');
-var { CleanWebpackPlugin } = require('clean-webpack-plugin');
-var ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
-var ReactRefreshTypeScript = require('react-refresh-typescript');
+var webpack = require("webpack"),
+  path = require("path"),
+  fileSystem = require("fs-extra"),
+  env = require("./utils/env"),
+  CopyWebpackPlugin = require("copy-webpack-plugin"),
+  HtmlWebpackPlugin = require("html-webpack-plugin"),
+  TerserPlugin = require("terser-webpack-plugin");
+var { CleanWebpackPlugin } = require("clean-webpack-plugin");
+var ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
+var ReactRefreshTypeScript = require("react-refresh-typescript");
 
-const ASSET_PATH = process.env.ASSET_PATH || '/';
+const ASSET_PATH = process.env.ASSET_PATH || "/";
 
 var alias = {};
 
 // load the secrets
-var secretsPath = path.join(__dirname, 'secrets.' + env.NODE_ENV + '.js');
+var secretsPath = path.join(__dirname, "secrets." + env.NODE_ENV + ".js");
 
 var fileExtensions = [
-  'jpg',
-  'jpeg',
-  'png',
-  'gif',
-  'eot',
-  'otf',
-  'svg',
-  'ttf',
-  'woff',
-  'woff2',
+  "jpg",
+  "jpeg",
+  "png",
+  "gif",
+  "eot",
+  "otf",
+  "svg",
+  "ttf",
+  "woff",
+  "woff2",
 ];
 
 if (fileSystem.existsSync(secretsPath)) {
-  alias['secrets'] = secretsPath;
+  alias["secrets"] = secretsPath;
 }
 
-const isDevelopment = process.env.NODE_ENV !== 'production';
+const isDevelopment = process.env.NODE_ENV !== "production";
 
 var options = {
-  mode: process.env.NODE_ENV || 'development',
+  mode: process.env.NODE_ENV || "development",
   entry: {
-    newtab: path.join(__dirname, 'src', 'pages', 'Newtab', 'index.jsx'),
-    options: path.join(__dirname, 'src', 'pages', 'Options', 'index.jsx'),
-    popup: path.join(__dirname, 'src', 'pages', 'Popup', 'index.jsx'),
-    background: path.join(__dirname, 'src', 'pages', 'Background', 'index.js'),
-    contentScript: path.join(__dirname, 'src', 'pages', 'Content', 'index.js'),
-    devtools: path.join(__dirname, 'src', 'pages', 'Devtools', 'index.js'),
-    panel: path.join(__dirname, 'src', 'pages', 'Panel', 'index.jsx'),
+    newtab: path.join(__dirname, "src", "pages", "Newtab", "index.jsx"),
+    options: path.join(__dirname, "src", "pages", "Options", "index.jsx"),
+    popup: path.join(__dirname, "src", "pages", "Popup", "index.jsx"),
+    background: path.join(__dirname, "src", "pages", "Background", "index.js"),
+    contentScript: path.join(__dirname, "src", "pages", "Content", "index.js"),
+    devtools: path.join(__dirname, "src", "pages", "Devtools", "index.js"),
+    panel: path.join(__dirname, "src", "pages", "Panel", "index.jsx"),
   },
   output: {
-    filename: '[name].bundle.js',
-    path: path.resolve(__dirname, 'dist'), // Changed from 'build' to 'dist'
+    filename: "[name].bundle.js",
+    path: path.resolve(__dirname, "dist"), // Changed from 'build' to 'dist'
     clean: true,
     publicPath: ASSET_PATH,
   },
@@ -60,13 +60,13 @@ var options = {
         // in the `src` directory
         use: [
           {
-            loader: 'style-loader',
+            loader: "style-loader",
           },
           {
-            loader: 'css-loader',
+            loader: "css-loader",
           },
           {
-            loader: 'sass-loader',
+            loader: "sass-loader",
             options: {
               sourceMap: true,
             },
@@ -74,8 +74,8 @@ var options = {
         ],
       },
       {
-        test: new RegExp('.(' + fileExtensions.join('|') + ')$'),
-        type: 'asset/resource',
+        test: new RegExp(".(" + fileExtensions.join("|") + ")$"),
+        type: "asset/resource",
         exclude: /node_modules/,
         // loader: 'file-loader',
         // options: {
@@ -84,7 +84,7 @@ var options = {
       },
       {
         test: /\.html$/,
-        loader: 'html-loader',
+        loader: "html-loader",
         exclude: /node_modules/,
       },
       {
@@ -92,12 +92,13 @@ var options = {
         exclude: /node_modules/,
         use: [
           {
-            loader: require.resolve('ts-loader'),
+            loader: require.resolve("ts-loader"),
             options: {
               getCustomTransformers: () => ({
-                before: [isDevelopment && ReactRefreshTypeScript()].filter(
-                  Boolean
-                ),
+                before: [
+                  // Disable React Fast Refresh for Chrome extensions
+                  // isDevelopment && ReactRefreshTypeScript()
+                ].filter(Boolean),
               }),
               transpileOnly: isDevelopment,
             },
@@ -108,13 +109,14 @@ var options = {
         test: /\.(js|jsx)$/,
         use: [
           {
-            loader: 'source-map-loader',
+            loader: "source-map-loader",
           },
           {
-            loader: require.resolve('babel-loader'),
+            loader: require.resolve("babel-loader"),
             options: {
               plugins: [
-                isDevelopment && require.resolve('react-refresh/babel'),
+                // Disable React Fast Refresh for Chrome extensions
+                // isDevelopment && require.resolve("react-refresh/babel"),
               ].filter(Boolean),
             },
           },
@@ -126,21 +128,22 @@ var options = {
   resolve: {
     alias: alias,
     extensions: fileExtensions
-      .map((extension) => '.' + extension)
-      .concat(['.js', '.jsx', '.ts', '.tsx', '.css']),
+      .map((extension) => "." + extension)
+      .concat([".js", ".jsx", ".ts", ".tsx", ".css"]),
   },
   plugins: [
-    isDevelopment && new ReactRefreshWebpackPlugin(),
+    // Disable React Fast Refresh for Chrome extensions to prevent WebSocket connection errors
+    // isDevelopment && new ReactRefreshWebpackPlugin(),
     new CleanWebpackPlugin({ verbose: false }),
     new webpack.ProgressPlugin(),
     // expose and write the allowed env vars on the compiled bundle
-    new webpack.EnvironmentPlugin({ NODE_ENV: 'production' }),
+    new webpack.EnvironmentPlugin({ NODE_ENV: "production" }),
     // Copy manifest.json to dist/ and inject version/description from package.json
     new CopyWebpackPlugin({
       patterns: [
         {
-          from: 'src/manifest.json',
-          to: path.join(__dirname, 'dist'),
+          from: "src/manifest.json",
+          to: path.join(__dirname, "dist"),
           force: true,
           transform: function (content, path) {
             return Buffer.from(
@@ -157,63 +160,79 @@ var options = {
     // Copy all static assets and styles to dist/
     new CopyWebpackPlugin({
       patterns: [
-        { from: 'src/pages/Content/content.styles.css', to: path.join(__dirname, 'dist'), force: true },
-        { from: 'src/pages/Content/clippy.styles.css', to: path.join(__dirname, 'dist'), force: true },
-        { from: 'src/assets/img/icon-128.png', to: path.join(__dirname, 'dist'), force: true },
-        { from: 'src/assets/img/icon-34.png', to: path.join(__dirname, 'dist'), force: true },
+        {
+          from: "src/pages/Content/content.styles.css",
+          to: path.join(__dirname, "dist"),
+          force: true,
+        },
+        {
+          from: "src/pages/Content/clippy.styles.css",
+          to: path.join(__dirname, "dist"),
+          force: true,
+        },
+        {
+          from: "src/assets/img/icon-128.png",
+          to: path.join(__dirname, "dist"),
+          force: true,
+        },
+        {
+          from: "src/assets/img/icon-34.png",
+          to: path.join(__dirname, "dist"),
+          force: true,
+        },
       ],
     }),
     // Copy all contents of public/ to dist/ if public/ exists
     new CopyWebpackPlugin({
       patterns: [
         {
-          from: path.resolve(__dirname, 'public'),
-          to: path.resolve(__dirname, 'dist'),
+          from: path.resolve(__dirname, "public"),
+          to: path.resolve(__dirname, "dist"),
           noErrorOnMissing: true, // Don't error if public/ doesn't exist
           globOptions: {
-            ignore: ['**/.DS_Store'],
+            ignore: ["**/.DS_Store"],
           },
         },
       ],
     }),
     new HtmlWebpackPlugin({
-      template: path.join(__dirname, 'src', 'pages', 'Newtab', 'index.html'),
-      filename: 'newtab.html',
-      chunks: ['newtab'],
+      template: path.join(__dirname, "src", "pages", "Newtab", "index.html"),
+      filename: "newtab.html",
+      chunks: ["newtab"],
       cache: false,
     }),
     new HtmlWebpackPlugin({
-      template: path.join(__dirname, 'src', 'pages', 'Options', 'index.html'),
-      filename: 'options.html',
-      chunks: ['options'],
+      template: path.join(__dirname, "src", "pages", "Options", "index.html"),
+      filename: "options.html",
+      chunks: ["options"],
       cache: false,
     }),
     new HtmlWebpackPlugin({
-      template: path.join(__dirname, 'src', 'pages', 'Popup', 'index.html'),
-      filename: 'popup.html',
-      chunks: ['popup'],
+      template: path.join(__dirname, "src", "pages", "Popup", "index.html"),
+      filename: "popup.html",
+      chunks: ["popup"],
       cache: false,
     }),
     new HtmlWebpackPlugin({
-      template: path.join(__dirname, 'src', 'pages', 'Devtools', 'index.html'),
-      filename: 'devtools.html',
-      chunks: ['devtools'],
+      template: path.join(__dirname, "src", "pages", "Devtools", "index.html"),
+      filename: "devtools.html",
+      chunks: ["devtools"],
       cache: false,
     }),
     new HtmlWebpackPlugin({
-      template: path.join(__dirname, 'src', 'pages', 'Panel', 'index.html'),
-      filename: 'panel.html',
-      chunks: ['panel'],
+      template: path.join(__dirname, "src", "pages", "Panel", "index.html"),
+      filename: "panel.html",
+      chunks: ["panel"],
       cache: false,
     }),
   ].filter(Boolean),
   infrastructureLogging: {
-    level: 'info',
+    level: "info",
   },
 };
 
-if (env.NODE_ENV === 'development') {
-  options.devtool = 'cheap-module-source-map';
+if (env.NODE_ENV === "development") {
+  options.devtool = "cheap-module-source-map";
 } else {
   options.optimization = {
     minimize: true,
