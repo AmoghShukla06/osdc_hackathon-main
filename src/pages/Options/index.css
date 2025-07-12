@@ -1,0 +1,145 @@
+/* Base styles for Options page */
+/* This file provides additional base styles to complement Options.css */
+
+/* CSS Reset for Options Page */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Ensure proper scrolling behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Focus styles for accessibility */
+:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* Button and input normalization */
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+/* Remove default button styles */
+button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+/* Remove default input styles */
+input,
+select,
+textarea {
+  border: none;
+  outline: none;
+  background: none;
+}
+
+/* Ensure images are responsive */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Hide scrollbars for cleaner look */
+.options-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.options-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.options-container::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+.options-container::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Dark theme scrollbar */
+html.dark .options-container::-webkit-scrollbar-thumb {
+  background: #475569;
+}
+
+html.dark .options-container::-webkit-scrollbar-thumb:hover {
+  background: #64748b;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* High contrast support */
+@media (prefers-contrast: high) {
+  * {
+    border-color: ButtonText !important;
+  }
+}
+
+/* Print styles */
+@media print {
+  * {
+    color: #000 !important;
+    background: #fff !important;
+    box-shadow: none !important;
+  }
+  
+  body {
+    font-size: 12pt;
+    line-height: 1.5;
+  }
+  
+  .options-nav,
+  .options-footer,
+  button {
+    display: none !important;
+  }
+  
+  .options-container {
+    min-height: auto;
+  }
+  
+  .settings-section {
+    break-inside: avoid;
+    margin-bottom: 20pt;
+  }
+}
