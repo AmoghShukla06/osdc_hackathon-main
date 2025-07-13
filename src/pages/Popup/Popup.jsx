@@ -98,13 +98,6 @@ const Popup = () => {
             </span>
           </div>
         </div>
-        <button
-          className="theme-toggle"
-          onClick={toggleTheme}
-          title="Toggle theme"
-        >
-          {theme === "dark" ? "☀️" : "🌙"}
-        </button>
       </header>
 
       {/* Quick Actions */}

@@ -1,0 +1,29 @@
+/* Retro Theme Overrides for Clippy Overlay */
+#clippy-overlay {
+  background-color: #F5E9CF !important;
+  color: #3C2A21 !important;
+  border: 4px solid #6E392F !important;
+  font-family: 'Press Start 2P', cursive !important;
+}
+#clippy-overlay * {
+  background-color: transparent !important;
+}
+#clippy-overlay .message,
+#clippy-overlay .clippy-message {
+  background-color: #FF8C42 !important;
+  color: #fff !important;
+  border: 2px solid #6E392F !important;
+  box-shadow: 4px 4px 0 #4C6085 !important;
+  padding: 8px !important;
+  font-family: inherit !important;
+}
+#clippy-overlay button,
+#clippy-overlay .clippy-button {
+  background-color: #FF8C42 !important;
+  color: #fff !important;
+  border: 2px solid #6E392F !important;
+  box-shadow: 4px 4px 0 #4C6085 !important;
+  padding: 6px 12px !important;
+  font-family: inherit !important;
+  cursor: pointer !important;
+}

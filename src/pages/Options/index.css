@@ -19,7 +19,9 @@ body {
   margin: 0;
   padding: 0;
   min-height: 100vh;
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-family: 'Press Start 2P', cursive;
+  background-color: var(--retro-bg);
+  color: var(--retro-text);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
@@ -32,7 +34,7 @@ html {
 
 /* Focus styles for accessibility */
 :focus {
-  outline: 2px solid #3b82f6;
+  outline: 2px solid var(--retro-primary);
   outline-offset: 2px;
 }
 
@@ -50,53 +52,47 @@ textarea {
 button {
   background: none;
   border: none;
-  padding: 0;
   cursor: pointer;
 }
 
-/* Remove default input styles */
 input,
 select,
 textarea {
-  border: none;
-  outline: none;
-  background: none;
+  background: var(--retro-bg);
+  border: 2px solid var(--retro-border);
+  color: var(--retro-text);
 }
 
-/* Ensure images are responsive */
 img {
   max-width: 100%;
   height: auto;
 }
 
-/* Hide scrollbars for cleaner look */
 .options-container::-webkit-scrollbar {
   width: 8px;
 }
 
 .options-container::-webkit-scrollbar-track {
-  background: transparent;
+  background: var(--retro-bg);
 }
 
 .options-container::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
+  background: var(--retro-secondary);
   border-radius: 4px;
 }
 
 .options-container::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+  background: var(--retro-primary);
 }
 
-/* Dark theme scrollbar */
 html.dark .options-container::-webkit-scrollbar-thumb {
-  background: #475569;
+  background: var(--retro-secondary);
 }
 
 html.dark .options-container::-webkit-scrollbar-thumb:hover {
-  background: #64748b;
+  background: var(--retro-primary);
 }
 
-/* Reduced motion support */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -108,38 +104,34 @@ html.dark .options-container::-webkit-scrollbar-thumb:hover {
   }
 }
 
-/* High contrast support */
 @media (prefers-contrast: high) {
   * {
-    border-color: ButtonText !important;
+    border-color: var(--retro-border) !important;
   }
 }
 
-/* Print styles */
 @media print {
   * {
-    color: #000 !important;
-    background: #fff !important;
-    box-shadow: none !important;
+    -webkit-print-color-adjust: exact !important;
+    color-adjust: exact !important;
   }
-  
+
   body {
-    font-size: 12pt;
-    line-height: 1.5;
+    background: white !important;
+    color: black !important;
   }
-  
+
   .options-nav,
-  .options-footer,
-  button {
+  .theme-toggle {
     display: none !important;
   }
-  
+
   .options-container {
-    min-height: auto;
+    max-width: none !important;
+    box-shadow: none !important;
   }
-  
+
   .settings-section {
-    break-inside: avoid;
-    margin-bottom: 20pt;
+    page-break-inside: avoid;
   }
 }

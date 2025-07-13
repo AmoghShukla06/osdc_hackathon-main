@@ -5,6 +5,8 @@
 .App-logo {
   height: 40vmin;
   pointer-events: none;
+  border: 4px solid var(--retro-border);
+  box-shadow: 4px 4px 0 var(--retro-secondary);
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -14,18 +16,18 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: var(--retro-secondary);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: var(--retro-bg);
 }
 
 .App-link {
-  color: #61dafb;
+  color: var(--retro-primary);
 }
 
 @keyframes App-logo-spin {

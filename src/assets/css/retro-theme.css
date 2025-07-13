@@ -1,0 +1,47 @@
+/* Retro Theme Variables */
+:root {
+  --retro-bg: #F5E9CF;
+  --retro-primary: #FF8C42;
+  --retro-secondary: #4C6085;
+  --retro-text: #3C2A21;
+  --retro-border: #6E392F;
+}
+
+/* Global styles */
+body {
+  background-color: var(--retro-bg);
+  color: var(--retro-text);
+  font-family: 'Press Start 2P', cursive;
+}
+
+/* Retro Buttons */
+button, .btn {
+  background-color: var(--retro-primary);
+  color: #fff;
+  border: 3px solid var(--retro-border);
+  box-shadow: 4px 4px 0 var(--retro-secondary);
+  font-family: inherit;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+/* Retro Inputs */
+input, textarea, select {
+  background-color: #FFF8E7;
+  border: 2px solid var(--retro-border);
+  padding: 4px;
+  box-shadow: 2px 2px 0 var(--retro-secondary) inset;
+  font-family: inherit;
+}
+
+/* Links */
+a {
+  color: var(--retro-secondary);
+  text-decoration: none;
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Press Start 2P', cursive;
+  color: var(--retro-secondary);
+} 
